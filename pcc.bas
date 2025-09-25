@@ -283,6 +283,8 @@ Sub LoadDir(drive$ As string, path$ As string)
         fileType$(totalItems) = "I"
       Case "JPG"
         fileType$(totalItems) = "J"
+      Case "PNG"
+        fileType$(totalItems) = "P"
       Case "TXT", ".MD", "BAT"
         fileType$(totalItems) = "T"
       Case "WAV"
@@ -356,6 +358,18 @@ Sub DisplayList(pane As integer, isAlt As integer)
 
 End Sub
 
+Sub DrawCheckerboard(sz As integer)
+  Local integer x,y
+  CLS RGB(white)
+  For y = 0 To MM.VRES-1 Step sz
+    For x = 0 To MM.HRES-1 Step sz
+      If (x \ sz + y \ sz) Mod 2 = 0 Then
+        Box x,y,sz,sz,0,0,RGB(lightgrey)
+      End If
+    Next x
+  Next y
+End Sub
+
 Sub ProcessItem
 
   ' Process the highlighted item
@@ -376,6 +390,10 @@ Sub ProcessItem
     Case "J"
       CLS
       Load jpg file$(sel)
+      GetKey : DrawFrame
+    Case "P"
+      DrawCheckerboard 8
+      Load png file$(sel),0,0,-1
       GetKey : DrawFrame
     Case "T"
       CLS
