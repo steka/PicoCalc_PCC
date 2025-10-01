@@ -394,6 +394,7 @@ Sub ProcessItem
     Case "P"
       DrawCheckerboard 8
       Load png file$(sel),0,0,-1
+      Print @(10,300) MM.ErrMsg$;
       GetKey : DrawFrame
     Case "T"
       CLS
